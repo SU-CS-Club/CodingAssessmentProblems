@@ -5,7 +5,7 @@
 def rotLeft(a, d):
     # for x in the range of 0 to the length of the array
     for x in range(0, len(a)):
-        # if the current location is the number of rotations 
+        # if the current location is the number of rotations
         if x == d:
             # return the array
             return a

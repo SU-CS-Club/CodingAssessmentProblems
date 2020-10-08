@@ -7,9 +7,10 @@ const isUnique = (myString)=>{
     // the string is just a collection of characters, javascript allows us to get a numerical ascii value for each character
     // so we'lll loop through each value and check it against the other values
     // this isn't incredibly efficient with an O(n^2) efficiency
+    // could sort O(nLogn) then n loop and check the current value 
     for(let i = 0; i < myString.length; i++){
         for(let k = i+1; k < myString.length; k++){
-            if((myString.charCodeAt(i) - myString.charCodeAt(k)) === 0){
+            if(myString.charCodeAt(i) === myString.charCodeAt(k)){
                 return false;
             }
         }

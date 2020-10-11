@@ -53,3 +53,36 @@ You may assume the string contains only lowercase alphabets.
  console.log(isAnagramTakeTwo('abc', 'cba'));
  console.log(isAnagramTakeTwo('aabbcc', 'cababc'));
  console.log(isAnagramTakeTwo("anagram", "nagaram"));
+
+
+ const isAnagramTakeThree = (first, second)=>{
+     // ok so take two takes a long time, it's O(n^2) on success, so we're gonna try something else
+     // using a hashmap we can take advantage of the O(1) lookup time
+    let hashMap = new Map();
+
+    for(let val = 0; val < first.length; val++){ // this for loop will generate a hash map of the keys and the number of times they occur
+        if(hashMap.has(first[val])){ // if the hashmap already has the key then increment the value to represent the number of times it appears in the string
+          hashMap.set(first[val], hashMap.get(first[val])+1)  
+        } else{
+            hashMap.set(first[val], 1);
+        }
+    }
+    for(let i = 0; i < second.length; i++){ // now that we've generated a hashmap of the letters in the first string and their occurences 
+    // we can loop through the array and begin to decrement
+    if(hashMap.has(second[i])){ // the first check check is if the key is in the hashmap, if it is, we decrement it's value, if it's not we can return false right away.
+        hashMap.set(second[i], hashMap.get(second[i])-1)
+        if(hashMap.get(second[i]) == 0){
+            hashMap.delete(second[i]) // if there's none left, delete it
+        }
+    } else {
+        return false;
+    }
+    }
+    return hashMap.size == 0;
+ }
+
+ console.log(isAnagramTakeThree("abcdafabcde", "afabcdeabcd"))
+ console.log(isAnagramTakeThree('ac', 'bb'));
+ console.log(isAnagramTakeThree('abc', 'cba'));
+ console.log(isAnagramTakeThree('aabbcc', 'cababc'));
+ console.log(isAnagramTakeThree("anagram", "nagaram"));

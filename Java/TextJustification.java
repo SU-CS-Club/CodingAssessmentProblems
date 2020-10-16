@@ -1,25 +1,27 @@
 package Java;
 
 import java.util.*;
+// https://leetcode.com/problems/text-justification/
 
 public class TextJustification {
     public List<String> fullJustify(String[] words, int maxWidth) {
         // consume words and add them to some data structure until the length of the words meets or exceeds the maxwidth - number of characters to account for spaces
         // then build line by summing the the numbers of characters to figure out the padding
         // it should be max-width - number of total chars/number of strings - 1 (and probably something else that I'm missing) 
+        // this solution ended up not working and was one space off because of the scenario where the spaces remaining spaces were even and the remaining 
         int sum = 0;
         int space = 0;
         Deque<String> stack = new LinkedList<String>();
         List<String> result = new ArrayList<String>();
-        for(int i = 0; i < words.length; i++){
-            sum += words[i].length();
-            if(stack.size() > 0){
+        for(int i = 0; i < words.length; i++){ // N loop through words
+            sum += words[i].length(); // update the sum with the current word length
+            if(stack.size() > 0){ // we need to account for spaces 
                 space += 1;
             }
             if((sum + space) < maxWidth){
                 stack.add(words[i]);
             } 
-            if(i == words.length -1 && ((sum + space) < maxWidth)){
+            if(i == words.length -1 && ((sum + space) < maxWidth)){ // end case - left justification
                 int spaces = (maxWidth - sum - (stack.size() - 1));
                 String str = "";
                 while(stack.size() > 0){
@@ -35,8 +37,8 @@ public class TextJustification {
                 System.out.println(str);
                 result.add(str);
             }
-            else if((sum + space) >= maxWidth){
-                sum -= words[i].length();
+            else if((sum + space) >= maxWidth){ // if our combined spaces and words are greater than max-width then build a sentence
+                sum -= words[i].length(); // current word is part of what makes sentence too long, removit from sum 
                 int spaces;
                 if(stack.size() > 1){
                     spaces = ((maxWidth - sum) / (stack.size()-1));

@@ -28,6 +28,22 @@ const bst = (arr, searchFor, left=0, right=arr.length -1)=>{
 
 }
 
+function iterativeBinarySearch(n, arr) {
+    let start = 0;
+    let end = arr.length - 1;
+  while (start <= end) {
+      let mid = Math.floor((start + end) / 2);
+      if (arr[mid] === n) {
+        return true;
+      } else if (arr[mid] < n) {
+        start = mid + 1;
+      } else {
+        end = mid - 1;
+      }
+    }
+    return false;
+  }
+
 // create test array
 test = [1, 4, 5, 2, 1, 6, 564, 23, 12, 43, 2343, 21, 1232, 8]
 
@@ -37,6 +53,13 @@ if(bst(test, 23)){
     console.log("23 was found")
 }
 if(!bst(test, 0)){
+    console.log("0 was not found")
+}
+
+if(iterativeBinarySearch(test, 23)){
+    console.log("23 was found")
+}
+if(!iterativeBinarySearch(test, 0)){
     console.log("0 was not found")
 }
 

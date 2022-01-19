@@ -12,10 +12,11 @@ I believe this works but it could be wrong
 # @param [String] time
 # @return [Integer]
 def minutes_after_midnight (time)
-    time = "0" + time if time.length == 7
+    # adds a leading zero to make the formating easier for times like 1:23 PM
+    time = "0" + time if time.length == 7 
     return 0 if time == "12:00 AM"
     return 12 * 60 if time == "12:00 PM"
-    hours = time[0,2].to_i
+    hours = time[0,2].to_i # .to_i casts to integer
     minutes = time[3,4].to_i
     total_minutes = (hours * 60) + minutes
     total_minutes += (12 * 60) if time[6] == 'P'
